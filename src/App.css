@@ -1,0 +1,5 @@
+.featured-img {
+    width: 100wh;
+    background-image: linear-gradient(to bottom, #00000080, #00000080), url('./assets/home/featured.jpg');
+    /* background-image: url('./assets/home/featured.jpg'); */
+}
