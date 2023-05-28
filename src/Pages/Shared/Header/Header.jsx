@@ -1,9 +1,21 @@
-import React from "react";
-import { HiOutlineShoppingCart } from "react-icons/hi";
+import React, { useContext } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProvidert";
 
 const Header = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   const navMenu = (
     <>
       <li>
@@ -22,6 +34,16 @@ const Header = () => {
         <Link to="/order/salad">Order</Link>
       </li>
       <li>
+        <Link to="/secret">secret</Link>
+      </li>
+      {user ? (
+        <button onClick={handleLogOut}>Logout</button>
+      ) : (
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+      )}
+      <li>
         <label tabIndex={0} className="btn btn-ghost btn-circle">
           <div className="indicator">
             <Link to="/cart">
@@ -33,7 +55,7 @@ const Header = () => {
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="avatar">
             <div className="w-8 rounded-full">
-              <img src="" />
+              <img title={user.displayName} src={user.photoURL} />
             </div>
           </label>
         </div>

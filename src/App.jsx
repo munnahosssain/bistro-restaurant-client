@@ -1,14 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import "./App.css";
 import Footer from "./Pages/Shared/Footer/Footer";
 import Header from "./Pages/Shared/Header/Header";
 
 function App() {
+  const location = useLocation();
+  const hideNavbarFooter =
+    location.pathname.includes("login") || location.pathname.includes("signUp");
+
   return (
     <>
-      <Header />
+      {hideNavbarFooter || <Header />}
       <Outlet />
-      <Footer />
+      {hideNavbarFooter || <Footer />}
     </>
   );
 }

@@ -7,6 +7,11 @@ import App from "./App";
 import { HelmetProvider } from "react-helmet-async";
 import Menu from "./Pages/Menu/Menu/Menu";
 import Order from "./Pages/Order/Order/Order";
+import Login from "./Pages/Register/Login/Login";
+import SignUp from "./Pages/Register/SignUp/SignUp";
+import AuthProvider from "./providers/AuthProvidert";
+import Secret from "./Pages/Shared/Secret/Secret";
+import PrivateRoute from "./routes/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -25,14 +30,32 @@ const router = createBrowserRouter([
         path: "/order/:category",
         element: <Order />,
       },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signUp",
+        element: <SignUp />,
+      },
+      {
+        path: "/secret",
+        element: (
+          <PrivateRoute>
+            <Secret />,
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HelmetProvider>
-      <RouterProvider router={router} />
-    </HelmetProvider>
+    <AuthProvider>
+      <HelmetProvider>
+        <RouterProvider router={router} />
+      </HelmetProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
