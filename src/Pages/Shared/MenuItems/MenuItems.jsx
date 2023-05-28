@@ -1,7 +1,7 @@
 import React from "react";
 
 const MenuItems = ({ item }) => {
-  const { _id, name, recipe, image, price } = item;
+  const { name, recipe, image, price } = item;
 
   return (
     <div className="flex space-x-4 items-center justify-center p-2">

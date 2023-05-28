@@ -1,17 +1,42 @@
 import React from "react";
+import { HiOutlineShoppingCart } from "react-icons/hi";
+import { FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 const Header = () => {
   const navMenu = (
     <>
       <li>
-        <a>Item 1</a>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <a>Item 2</a>
+        <Link to="/contact">Contact US</Link>
       </li>
       <li>
-        <a>Item 3</a>
+        <Link to="/dashboard">Dashboard</Link>
+      </li>
+      <li>
+        <Link to="/ourMenu">Our Menu</Link>
+      </li>
+      <li>
+        <Link to="/order/salad">Order</Link>
+      </li>
+      <li>
+        <label tabIndex={0} className="btn btn-ghost btn-circle">
+          <div className="indicator">
+            <Link to="/cart">
+              <FiShoppingCart size={24} />
+            </Link>
+            <span className="badge bg-none indicator-item">8</span>
+          </div>
+        </label>
+        <div className="dropdown dropdown-end">
+          <label tabIndex={0} className="avatar">
+            <div className="w-8 rounded-full">
+              <img src="" />
+            </div>
+          </label>
+        </div>
       </li>
     </>
   );
