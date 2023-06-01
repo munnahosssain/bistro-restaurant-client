@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../../providers/AuthProvidert";
+import { AuthContext } from "../../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const { createUser, userProfile } = useContext(AuthContext);
@@ -22,14 +23,28 @@ const SignUp = () => {
         console.log(user);
         userProfile(data.name, data.photo)
           .then(() => {
-            reset();
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "User SignUp successfully!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            const saveUser = { name: data.name, email: data.email };
+            fetch("http://localhost:5000/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(saveUser),
+            })
+              .then(res => res.json())
+              .then(data => {
+                if (data.insertedId) {
+                  reset();
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "User SignUp successfully!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                }
+                console.log(data);
+              });
           })
           .catch(error => {
             console.log(error);
@@ -136,6 +151,7 @@ const SignUp = () => {
                 </span>
               </div>
             </form>
+            <SocialLogin />
           </div>
         </div>
       </div>

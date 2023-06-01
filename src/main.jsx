@@ -9,9 +9,14 @@ import Menu from "./Pages/Menu/Menu/Menu";
 import Order from "./Pages/Order/Order/Order";
 import Login from "./Pages/Register/Login/Login";
 import SignUp from "./Pages/Register/SignUp/SignUp";
-import AuthProvider from "./providers/AuthProvidert";
+import AuthProvider from "./providers/AuthProvider";
 import Secret from "./Pages/Shared/Secret/Secret";
 import PrivateRoute from "./routes/PrivateRoute";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Dashboard from "./Layout/Dashboard";
+import MyCart from "./Pages/Dashboard/MyCart/MyCart";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -48,14 +53,30 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "/dashboard/myCart",
+        element: <MyCart />,
+      },
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <HelmetProvider>
-        <RouterProvider router={router} />
-      </HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <HelmetProvider>
+          <RouterProvider router={router} />
+        </HelmetProvider>
+      </QueryClientProvider>
     </AuthProvider>
   </React.StrictMode>
 );

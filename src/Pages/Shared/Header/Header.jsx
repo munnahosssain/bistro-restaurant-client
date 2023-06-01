@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../../providers/AuthProvidert";
+import { AuthContext } from "../../../providers/AuthProvider";
+import useCart from "../../../hooks/UseCart";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [cart] = useCart();
+  // console.log("Headers", cart.length);
 
   const handleLogOut = () => {
     logOut()
@@ -44,18 +47,20 @@ const Header = () => {
         </li>
       )}
       <li>
-        <label tabIndex={0} className="btn btn-ghost btn-circle">
+        <label className="">
           <div className="indicator">
-            <Link to="/cart">
+            <Link to="/dashboard/myCart">
               <FiShoppingCart size={24} />
             </Link>
-            <span className="badge bg-none indicator-item">8</span>
+            <span className="badge bg-white text-black indicator-item">
+              {cart?.length || 0}
+            </span>
           </div>
         </label>
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="avatar">
             <div className="w-8 rounded-full">
-              <img title={user.displayName} src={user.photoURL} />
+              <img title={user?.displayName} src={user?.photoURL} />
             </div>
           </label>
         </div>

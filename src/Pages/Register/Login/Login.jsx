@@ -4,10 +4,11 @@ import {
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
-import { AuthContext } from "../../../providers/AuthProvidert";
+import { AuthContext } from "../../../providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
@@ -17,9 +18,11 @@ const Login = () => {
 
   const from = location.state?.from?.pathname || "/";
 
-  useEffect(() => {
-    loadCaptchaEnginge(6);
-  }, []);
+  // TODO: must do Enable captcha functionality
+
+  // useEffect(() => {
+  //   loadCaptchaEnginge(6);
+  // }, []);
 
   const handleLogin = event => {
     event.preventDefault();
@@ -97,28 +100,21 @@ const Login = () => {
                   className="input input-bordered"
                 />
               </div>
-              <div className="form-control">
+              {/* <div className="form-control">
                 <label className="label">
                   <LoadCanvasTemplate />
                 </label>
                 <input
-                  // required
                   type="text"
                   name="captcha"
                   onBlur={handleValidCaptcha}
                   placeholder="Type Captcha"
                   className="input input-bordered"
                 />
-                {/* <button
-                  onClick={handleValidCaptcha}
-                  className="btn btn-outline btn-xs mt-2"
-                >
-                  Validate
-                </button> */}
-              </div>
+              </div> */}
               <div className="form-control mt-6">
                 <input
-                  disabled={disabled}
+                  // disabled={disabled}
                   type="submit"
                   value="Login"
                   className="btn btn-primary bg-[#D1A054] border-none hover:bg-[#e9aa4b]"
@@ -131,6 +127,7 @@ const Login = () => {
                 </span>
               </div>
             </form>
+            <SocialLogin />
           </div>
         </div>
       </div>
