@@ -10,10 +10,12 @@ import {
   FaWallet,
 } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
   const [cart] = useState();
-  const isAdmin = true;
+  // const isAdmin = true;
+  const [isAdmin] = useAdmin();
 
   return (
     <div className="drawer drawer-mobile">
